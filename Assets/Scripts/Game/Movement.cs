@@ -125,7 +125,7 @@ public class Movement : MonoBehaviour
             case 0:
                 resolvedHorse = Instantiate(redToken, startPlace.transform.position, Quaternion.identity);
                 resolvedHorse.transform.SetParent(horsesGameObject.transform);
-                Horses.Add(CreatedHorseCount, new List<Tuple<int, GameObject>> {new (0, resolvedHorse)});
+                Horses.Add(CreatedHorseCount, new List<Tuple<int, GameObject>> {new (BoardGame.MoveCount, resolvedHorse)});
 
                 // AddCounter
                 createdHorseCounter.name = CreatedHorseCount.ToString();
@@ -136,7 +136,7 @@ public class Movement : MonoBehaviour
             case 1:
                 resolvedHorse = Instantiate(greenToken, startPlace.transform.position, Quaternion.identity);
                 resolvedHorse.transform.SetParent(horsesGameObject.transform);
-                Horses.Add(CreatedHorseCount, new List<Tuple<int, GameObject>> {new (0, resolvedHorse)});
+                Horses.Add(CreatedHorseCount, new List<Tuple<int, GameObject>> {new (BoardGame.MoveCount, resolvedHorse)});
                 
                 // AddCounter
                 createdHorseCounter.name = CreatedHorseCount.ToString();
@@ -147,7 +147,7 @@ public class Movement : MonoBehaviour
             case 2:
                 resolvedHorse = Instantiate(blueToken, startPlace.transform.position, Quaternion.identity);
                 resolvedHorse.transform.SetParent(horsesGameObject.transform);
-                Horses.Add(CreatedHorseCount, new List<Tuple<int, GameObject>> {new (0, resolvedHorse)});
+                Horses.Add(CreatedHorseCount, new List<Tuple<int, GameObject>> {new (BoardGame.MoveCount, resolvedHorse)});
                 
                 // AddCounter
                 createdHorseCounter.name = CreatedHorseCount.ToString();
@@ -158,7 +158,7 @@ public class Movement : MonoBehaviour
             case 3:
                 resolvedHorse = Instantiate(yellowToken, startPlace.transform.position, Quaternion.identity);
                 resolvedHorse.transform.SetParent(horsesGameObject.transform);
-                Horses.Add(CreatedHorseCount, new List<Tuple<int, GameObject>> {new (0, resolvedHorse)});
+                Horses.Add(CreatedHorseCount, new List<Tuple<int, GameObject>> {new (BoardGame.MoveCount, resolvedHorse)});
                 
                 // AddCounter
                 createdHorseCounter.name = CreatedHorseCount.ToString();
@@ -170,7 +170,7 @@ public class Movement : MonoBehaviour
         
         // Move Horse
         Horses[CreatedHorseCount - 1][0].Item2.transform.position = MoveNewPlace(BoardGame.MoveCount).transform.position;
-        UpdateHorsesMoveCount(CreatedHorseCount - 1, Horses[CreatedHorseCount - 1][0].Item1 + BoardGame.MoveCount);
+        // UpdateHorsesMoveCount(CreatedHorseCount - 1, Horses[CreatedHorseCount - 1][0].Item1 + BoardGame.MoveCount);
         UpdateStoredHorseCount(Convert.ToInt32(CharacterSelector.UserInfo[BoardGame.NowTurn][2]), -1);
         
         if (!BoardGame.DoubleChance)
@@ -221,6 +221,7 @@ public class Movement : MonoBehaviour
     {
         return a switch
         {
+            0 => startPlace,
             1 => rDo,
             2 => rGae,
             3 => rGeol,

@@ -19,8 +19,12 @@ public class HorseMovement : MonoBehaviour
         if (CharacterSelector.UserInfo[BoardGame.NowTurn][1][1..] !=
             gameObject.GetComponent<Image>().color.ToHexString()[..6]) return;
 
-        if (!MoveEnabled && BoardGame.MoveCount != 0 && BoardGame.MoveCount != -1)
+        if (!MoveEnabled && BoardGame.MoveCount != 0)
         {
+            // BackDo Support
+            if (Movement.Horses[Convert.ToInt32(gameObject.transform.GetChild(1).name)][0].Item1 == 0)
+                Movement.UpdateHorsesMoveCount(Convert.ToInt32(gameObject.transform.GetChild(1).name), 20);
+            
             MoveEnabled = true;
             // Get Required Information
             var movedCount = Movement.Horses[Convert.ToInt32(gameObject.transform.GetChild(1).name)][0].Item1;
