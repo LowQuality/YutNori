@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Game
 {
@@ -19,6 +20,7 @@ public class DebugModule : MonoBehaviour
         BoardGame.ShowedValue = false;
         BoardGame.DroppedYut = false;
         BoardGame.MoveCount = 0;
+        OverLap.Finished = false;
     }
     
     public void Dropped()
@@ -27,6 +29,7 @@ public class DebugModule : MonoBehaviour
         BoardGame.DoubleChance = false;
         BoardGame.ThrewYut = true;
         BoardGame.ShowedValue = true;
+        OverLap.Finished = false;
         BoardGame.DroppedYut = true;
     }
 
@@ -36,6 +39,7 @@ public class DebugModule : MonoBehaviour
         BoardGame.DoubleChance = false;
         BoardGame.ThrewYut = true;
         BoardGame.ShowedValue = true;
+        OverLap.Finished = false;
         BoardGame.DroppedYut = false;
     }
 
@@ -45,6 +49,7 @@ public class DebugModule : MonoBehaviour
         BoardGame.DoubleChance = false;
         BoardGame.ThrewYut = true;
         BoardGame.ShowedValue = true;
+        OverLap.Finished = false;
         BoardGame.DroppedYut = false;
     }
 
@@ -54,6 +59,7 @@ public class DebugModule : MonoBehaviour
         BoardGame.DoubleChance = false;
         BoardGame.ThrewYut = true;
         BoardGame.ShowedValue = true;
+        OverLap.Finished = false;
         BoardGame.DroppedYut = false;
     }
 
@@ -63,6 +69,7 @@ public class DebugModule : MonoBehaviour
         BoardGame.DoubleChance = true;
         BoardGame.ThrewYut = true;
         BoardGame.ShowedValue = true;
+        OverLap.Finished = false;
         BoardGame.DroppedYut = false;
     }
 
@@ -72,6 +79,7 @@ public class DebugModule : MonoBehaviour
         BoardGame.DoubleChance = true;
         BoardGame.ThrewYut = true;
         BoardGame.ShowedValue = true;
+        OverLap.Finished = false;
         BoardGame.DroppedYut = false;
     }
 
@@ -81,7 +89,14 @@ public class DebugModule : MonoBehaviour
         BoardGame.DoubleChance = false;
         BoardGame.ThrewYut = true;
         BoardGame.ShowedValue = true;
-        BoardGame.DroppedYut = false;
+        OverLap.Finished = false;
+        
+        if (BoardGame.MoveCount == -1 &&
+            Movement.StoredHorseCount(Convert.ToInt32(CharacterSelector.UserInfo[BoardGame.NowTurn][2])) ==
+            Movement.AllHorseCount(Convert.ToInt32(CharacterSelector.UserInfo[BoardGame.NowTurn][2])))
+        {
+            BoardGame.DroppedYut = true;
+        }
     }
 }
 }

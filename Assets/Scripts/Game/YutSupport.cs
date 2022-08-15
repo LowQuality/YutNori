@@ -157,9 +157,10 @@ public class YutSupport : MonoBehaviour
                     BoardGame.DoubleChance = true;
                     break;
             }
-
+            
             if (BoardGame.MoveCount == -1 &&
-                Movement.StoredHorseCount(Convert.ToInt32(CharacterSelector.UserInfo[BoardGame.NowTurn][2])) >= 4)
+                Movement.StoredHorseCount(Convert.ToInt32(CharacterSelector.UserInfo[BoardGame.NowTurn][2])) ==
+                Movement.AllHorseCount(Convert.ToInt32(CharacterSelector.UserInfo[BoardGame.NowTurn][2])))
             {
                 BoardGame.DroppedYut = true;
             }

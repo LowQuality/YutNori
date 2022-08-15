@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,8 +11,10 @@ public class HorseMovement : MonoBehaviour
 {
     public static bool MoveEnabled;
     private static GameObject _waitingHorse;
-    private static readonly List<GameObject> _highlights = new ();
+    private static readonly List<GameObject> Highlights = new ();
     private static GameObject _movedHorse;
+
+    public static bool IsHorseMove;
 
     public void Move()
     {
@@ -38,7 +41,7 @@ public class HorseMovement : MonoBehaviour
             
             var highlight = Instantiate(Movement.Instance.moveTo, newMoveGameObject.transform.position, Quaternion.identity);
             highlight.transform.SetParent(GameObject.Find("Container").transform);
-            _highlights.Add(highlight);
+            Highlights.Add(highlight);
             _waitingHorse = gameObject;
         }
         else
@@ -46,13 +49,13 @@ public class HorseMovement : MonoBehaviour
             MoveEnabled = false;
             try
             {
-                foreach (var t in _highlights)
+                foreach (var t in Highlights)
                 {
                     Destroy(t);
                 }
-                _highlights.Clear();
+                Highlights.Clear();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignored
             }
@@ -132,29 +135,19 @@ public class HorseMovement : MonoBehaviour
         MoveEnabled = false;
         try
         {
-            foreach (var t in _highlights)
+            foreach (var t in Highlights)
             {
                 Destroy(t);
             }
-            _highlights.Clear();
+            Highlights.Clear();
         }
-        catch (Exception e)
+        catch (Exception)
         {
             // ignored
         }
         _waitingHorse = null;
 
-        if (!BoardGame.DoubleChance)
-        {
-            if (BoardGame.NowTurn != BoardGame.MaxTurn) BoardGame.NowTurn++;
-            else BoardGame.NowTurn = 0;
-        }
-        
-        BoardGame.DoubleChance = false;
-        BoardGame.ThrewYut = false;
-        BoardGame.ShowedValue = false;
-        BoardGame.DroppedYut = false;
-        BoardGame.MoveCount = 0;
+        IsHorseMove = true;
     }
 }
 }

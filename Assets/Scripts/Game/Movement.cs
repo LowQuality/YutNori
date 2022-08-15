@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -172,17 +173,8 @@ public class Movement : MonoBehaviour
         Horses[CreatedHorseCount - 1][0].Item2.transform.position = MoveNewPlace(BoardGame.MoveCount).transform.position;
         // UpdateHorsesMoveCount(CreatedHorseCount - 1, Horses[CreatedHorseCount - 1][0].Item1 + BoardGame.MoveCount);
         UpdateStoredHorseCount(Convert.ToInt32(CharacterSelector.UserInfo[BoardGame.NowTurn][2]), -1);
-        
-        if (!BoardGame.DoubleChance)
-        {
-            if (BoardGame.NowTurn != BoardGame.MaxTurn) BoardGame.NowTurn++;
-            else BoardGame.NowTurn = 0;
-        }
-        BoardGame.DoubleChance = false;
-        BoardGame.ThrewYut = false;
-        BoardGame.ShowedValue = false;
-        BoardGame.DroppedYut = false;
-        BoardGame.MoveCount = 0;
+
+        StartCoroutine(Next());
     }
     
     // Functions //
@@ -194,6 +186,18 @@ public class Movement : MonoBehaviour
             1 => BoardGame.NGreenTokenCount,
             2 => BoardGame.NBlueTokenCount,
             3 => BoardGame.NYellowTokenCount,
+            _ => 0
+        };
+    }
+    
+    public static int AllHorseCount(int a)
+    {
+        return a switch
+        {
+            0 => BoardGame.RedTokenCount,
+            1 => BoardGame.GreenTokenCount,
+            2 => BoardGame.BlueTokenCount,
+            3 => BoardGame.YellowTokenCount,
             _ => 0
         };
     }
@@ -258,6 +262,22 @@ public class Movement : MonoBehaviour
             58 => anjjyeo,
             _ => null
         };
+    }
+
+    private static IEnumerator Next()
+    {
+        yield return new WaitUntil(() => OverLap.Finished);
+        if (!BoardGame.DoubleChance)
+        {
+            if (BoardGame.NowTurn != BoardGame.MaxTurn) BoardGame.NowTurn++;
+            else BoardGame.NowTurn = 0;
+        }
+        BoardGame.DoubleChance = false;
+        BoardGame.ThrewYut = false;
+        BoardGame.ShowedValue = false;
+        BoardGame.DroppedYut = false;
+        BoardGame.MoveCount = 0;
+        OverLap.Finished = false;
     }
 }
 }

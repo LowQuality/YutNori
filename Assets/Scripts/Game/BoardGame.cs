@@ -46,7 +46,19 @@ public class BoardGame : MonoBehaviour
 
     private void Start()
     {
-        debugModule.SetActive(Debug.isDebugBuild);
+        if (Debug.isDebugBuild)
+        {
+            Debug.Log(
+                "\n" +
+                      "\n" +
+                      "------------------------------------------------------\n" +
+                      "Debug Mode Enabled!\n" +
+                      "------------------------------------------------------\n" +
+                      "\n" +
+                      "\n")
+                ;
+            debugModule.SetActive(true);
+        }
         NowTurn = 0;
     }
 
