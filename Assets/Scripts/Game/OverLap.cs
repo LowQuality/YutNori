@@ -140,6 +140,7 @@ public class OverLap : MonoBehaviour
         BoardGame.DroppedYut = false;
         BoardGame.MoveCount = 0;
         HorseMovement.IsHorseMove = false;
+        HorseMovement.MoveEnabled = false;
         Finished = false;
     }
     

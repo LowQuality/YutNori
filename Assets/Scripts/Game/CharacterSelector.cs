@@ -41,6 +41,7 @@ public class CharacterSelector : MonoBehaviour
         }
         else
         {
+            // Init //
             BoardGame.RedTokenCount = HorseCountSetting.HorseCount;
             BoardGame.GreenTokenCount = HorseCountSetting.HorseCount;
             BoardGame.BlueTokenCount = HorseCountSetting.HorseCount;
@@ -49,6 +50,15 @@ public class CharacterSelector : MonoBehaviour
             BoardGame.NGreenTokenCount = HorseCountSetting.HorseCount;
             BoardGame.NBlueTokenCount = HorseCountSetting.HorseCount;
             BoardGame.NYellowTokenCount = HorseCountSetting.HorseCount;
+            
+            BoardGame.DoubleChance = false;
+            BoardGame.ThrewYut = false;
+            BoardGame.ShowedValue = false;
+            BoardGame.DroppedYut = false;
+            BoardGame.MoveCount = 0;
+            OverLap.Finished = false;
+            HorseMovement.MoveEnabled = false;
+            // Init //
             
             SceneAsyncLoadManager.SetSceneName("BoardGame");
             SceneManager.LoadScene("Loading");

@@ -31,6 +31,21 @@ public class ExitTrigger : MonoBehaviour
                 BoardGame.YellowTokenCount -= saveHorseCount;
                 break;
         }
+        
+        if (!HorseMovement.IsHorseMove) return; // Global if
+        if (!BoardGame.DoubleChance)
+        {
+            if (BoardGame.NowTurn != BoardGame.MaxTurn) BoardGame.NowTurn++;
+            else BoardGame.NowTurn = 0;
+        }
+        BoardGame.DoubleChance = false;
+        BoardGame.ThrewYut = false;
+        BoardGame.ShowedValue = false;
+        BoardGame.DroppedYut = false;
+        BoardGame.MoveCount = 0;
+        HorseMovement.IsHorseMove = false;
+        HorseMovement.MoveEnabled = false;
+        OverLap.Finished = false;
     }
 }
 }

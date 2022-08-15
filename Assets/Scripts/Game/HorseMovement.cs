@@ -16,6 +16,24 @@ public class HorseMovement : MonoBehaviour
 
     public static bool IsHorseMove;
 
+    private void Update()
+    {
+        if (MoveEnabled) return;
+        try
+        {
+            foreach (var t in Highlights)
+            {
+                Destroy(t);
+            }
+            Highlights.Clear();
+        }
+        catch (Exception)
+        {
+            // ignored
+        }
+        _waitingHorse = null;
+    }
+
     public void Move()
     {
         // Check is clicked horse is now turn
@@ -47,18 +65,6 @@ public class HorseMovement : MonoBehaviour
         else
         {
             MoveEnabled = false;
-            try
-            {
-                foreach (var t in Highlights)
-                {
-                    Destroy(t);
-                }
-                Highlights.Clear();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
             _waitingHorse = null;
         }
     }
@@ -133,20 +139,6 @@ public class HorseMovement : MonoBehaviour
         Movement.CreatedHorseCount++;
         
         MoveEnabled = false;
-        try
-        {
-            foreach (var t in Highlights)
-            {
-                Destroy(t);
-            }
-            Highlights.Clear();
-        }
-        catch (Exception)
-        {
-            // ignored
-        }
-        _waitingHorse = null;
-
         IsHorseMove = true;
     }
 }

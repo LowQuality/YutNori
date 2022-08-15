@@ -278,6 +278,7 @@ public class Movement : MonoBehaviour
         BoardGame.DroppedYut = false;
         BoardGame.MoveCount = 0;
         OverLap.Finished = false;
+        HorseMovement.MoveEnabled = false;
     }
 }
 }
