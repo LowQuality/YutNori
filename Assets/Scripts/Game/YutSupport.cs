@@ -14,6 +14,11 @@ public class YutSupport : MonoBehaviour
     public GameObject droppedYutCheck;
     
     // Calculate Yut (yut F/B/D, yut Marked)
+    
+    // !! Notice !! //
+    // Front = Curved Side, Back = Straight Side, Drop = Dropped
+    // !! Notice !! //
+    
     public static Dictionary<int, Dictionary<int, bool>> yut = new ();
 
     public void LowThrow()
@@ -24,21 +29,21 @@ public class YutSupport : MonoBehaviour
         // Threw
         BoardGame.ThrewYut = true;
         
-        // Calc (Front = 39%, Back = 59%, Drop = 2%) x 4
+        // Calc (Front = 39%, Back = 60.5%, Drop = 0.5%) x 4
         for (var i = 0; i < 4; i++)
         {
             var random = new Random();
-            var randomNumber = random.Next(0, 100);
+            var randomNumber = random.Next(0, 10000);
             switch (randomNumber)
             {
-                case < 39:
-                    yut.Add(i, new Dictionary<int, bool> {{1, false}}); // Front
+                case < 3900:
+                    yut.Add(i, new Dictionary<int, bool> { { 0, false } }); // Front
                     break;
-                case < 98:
-                    yut.Add(i, new Dictionary<int, bool> {{2, false}}); // Back
+                case < 9950:
+                    yut.Add(i, new Dictionary<int, bool> { { 1, false } }); // Back
                     break;
                 default:
-                    yut.Add(i, new Dictionary<int, bool> {{3, false}}); // Drop
+                    yut.Add(i, new Dictionary<int, bool> { { 2, false } }); // Drop
                     break;
             }
         }
@@ -52,17 +57,17 @@ public class YutSupport : MonoBehaviour
         // Threw
         BoardGame.ThrewYut = true;
         
-        // Calc (Front = 49%, Back = 49%, Drop = 2%) x 4
+        // Calc (Front = 60%, Back = 30%, Drop = 10%) x 4
         for (var i = 0; i < 4; i++)
         {
             var random = new Random();
             var randomNumber = random.Next(0, 100);
             switch (randomNumber)
             {
-                case < 49:
+                case < 60:
                     yut.Add(i, new Dictionary<int, bool> {{1, false}}); // Front
                     break;
-                case < 98:
+                case < 90:
                     yut.Add(i, new Dictionary<int, bool> {{2, false}}); // Back
                     break;
                 default:
