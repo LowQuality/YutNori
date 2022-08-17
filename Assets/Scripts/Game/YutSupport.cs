@@ -37,13 +37,13 @@ public class YutSupport : MonoBehaviour
             switch (randomNumber)
             {
                 case < 3900:
-                    yut.Add(i, new Dictionary<int, bool> { { 0, false } }); // Front
+                    yut.Add(i, new Dictionary<int, bool> { { 1, false } }); // Front
                     break;
                 case < 9950:
-                    yut.Add(i, new Dictionary<int, bool> { { 1, false } }); // Back
+                    yut.Add(i, new Dictionary<int, bool> { { 2, false } }); // Back
                     break;
                 default:
-                    yut.Add(i, new Dictionary<int, bool> { { 2, false } }); // Drop
+                    yut.Add(i, new Dictionary<int, bool> { { 3, false } }); // Drop
                     break;
             }
         }
