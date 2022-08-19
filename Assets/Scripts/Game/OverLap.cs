@@ -28,6 +28,43 @@ public class OverLap : MonoBehaviour
             // Get horses Color
             var oldColorHex = Horses[0].GetComponent<Image>().color.ToHexString()[..6];
             var newColorHex = Horses[1].GetComponent<Image>().color.ToHexString()[..6];
+            
+            // Logs
+            var user1 = new List<string>();
+            var user2 = new List<string>();
+            switch (oldColorHex)
+            {
+                case "FF0000":
+                    user1.Add("빨간색");
+                    break;
+                case "00FF00":
+                    user1.Add("초록색");
+                    break;
+                case "0000FF":
+                    user1.Add("파란색");
+                    break;
+                case "FFFF00":
+                    user1.Add("노란색");
+                    break;
+            }
+            user1.Add($"#{oldColorHex}");
+                
+            switch (newColorHex)
+            {
+                case "FF0000":
+                    user2.Add("빨간색");
+                    break;
+                case "00FF00":
+                    user2.Add("초록색");
+                    break;
+                case "0000FF":
+                    user2.Add("파란색");
+                    break;
+                case "FFFF00":
+                    user2.Add("노란색");
+                    break;
+            }
+            user2.Add($"#{newColorHex}");
 
             if (oldColorHex != newColorHex)
                 // if this horse is different another horse
@@ -40,8 +77,10 @@ public class OverLap : MonoBehaviour
                     Convert.ToInt32(Horses[0].transform.GetChild(0).name[1..]));
                 Movement.Horses.Remove(Convert.ToInt32(Horses[0].transform.GetChild(1).name));
                 Destroy(Horses[0]);
+
+                GameLog.AddOverLapLog(user1, user2);
             }
-            else if (oldColorHex == newColorHex)
+            else
                 // if this horse is the same another horse
             {
                 var saveLocation = Horses[0].transform.position;
@@ -123,6 +162,8 @@ public class OverLap : MonoBehaviour
                 createdHorseCounter.transform.SetParent(resolvedHorse.transform);
 
                 Movement.CreatedHorseCount++;
+                
+                GameLog.AddOverLapLog(user1, user2, Convert.ToInt32(resolvedHorse.transform.GetChild(0).name[1..]));
             }
         }
 

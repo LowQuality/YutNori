@@ -12,6 +12,8 @@ public class YutSupport : MonoBehaviour
     public GameObject calculating;
     public GameObject calculated;
     public GameObject droppedYutCheck;
+
+    private static string _throwType;
     
     // Calculate Yut (yut F/B/D, yut Marked)
     
@@ -19,31 +21,32 @@ public class YutSupport : MonoBehaviour
     // Front = Curved Side, Back = Straight Side, Drop = Dropped
     // !! Notice !! //
     
-    public static Dictionary<int, Dictionary<int, bool>> yut = new ();
+    public static readonly Dictionary<int, Dictionary<int, bool>> Yut = new ();
 
     public void LowThrow()
     {
         // Clean Up Previous Yut Data
-        yut.Clear();
-        
+        Yut.Clear();
+
         // Threw
+        _throwType = "낮게 던지기";
         BoardGame.ThrewYut = true;
         
-        // Calc (Front = 39%, Back = 60.5%, Drop = 0.5%) x 4
+        // Calc (Front = 58%, Back = 41.5%, Drop = 0.5%) x 4
         for (var i = 0; i < 4; i++)
         {
             var random = new Random();
             var randomNumber = random.Next(0, 10000);
             switch (randomNumber)
             {
-                case < 3900:
-                    yut.Add(i, new Dictionary<int, bool> { { 1, false } }); // Front
+                case < 5800:
+                    Yut.Add(i, new Dictionary<int, bool> { { 1, false } }); // Front
                     break;
                 case < 9950:
-                    yut.Add(i, new Dictionary<int, bool> { { 2, false } }); // Back
+                    Yut.Add(i, new Dictionary<int, bool> { { 2, false } }); // Back
                     break;
                 default:
-                    yut.Add(i, new Dictionary<int, bool> { { 3, false } }); // Drop
+                    Yut.Add(i, new Dictionary<int, bool> { { 3, false } }); // Drop
                     break;
             }
         }
@@ -52,26 +55,27 @@ public class YutSupport : MonoBehaviour
     public void HighThrow()
     {
         // Clean Up Previous Yut Data
-        yut.Clear();
+        Yut.Clear();
         
         // Threw
+        _throwType = "높게 던지기";
         BoardGame.ThrewYut = true;
         
-        // Calc (Front = 60%, Back = 30%, Drop = 10%) x 4
+        // Calc (Front = 28%, Back = 62%, Drop = 10%) x 4
         for (var i = 0; i < 4; i++)
         {
             var random = new Random();
-            var randomNumber = random.Next(0, 100);
+            var randomNumber = random.Next(0, 10000);
             switch (randomNumber)
             {
-                case < 60:
-                    yut.Add(i, new Dictionary<int, bool> {{1, false}}); // Front
+                case < 2800:
+                    Yut.Add(i, new Dictionary<int, bool> {{1, false}}); // Front
                     break;
-                case < 90:
-                    yut.Add(i, new Dictionary<int, bool> {{2, false}}); // Back
+                case < 9000:
+                    Yut.Add(i, new Dictionary<int, bool> {{2, false}}); // Back
                     break;
                 default:
-                    yut.Add(i, new Dictionary<int, bool> {{3, false}}); // Drop
+                    Yut.Add(i, new Dictionary<int, bool> {{3, false}}); // Drop
                     break;
             }
         }
@@ -118,10 +122,10 @@ public class YutSupport : MonoBehaviour
         // Mark Rendomly
         var random = new Random();
         var randomMark = random.Next(0, 3);
-        yut.ElementAt(randomMark).Value[0] = true;
+        Yut.ElementAt(randomMark).Value[0] = true;
         
         // Drop Check
-        var dropCheck = yut.Where(x => x.Value.ContainsKey(3)).ToList();
+        var dropCheck = Yut.Where(x => x.Value.ContainsKey(3)).ToList();
         if (dropCheck.Count > 0)
         {
             BoardGame.MoveCount = 0;
@@ -131,9 +135,9 @@ public class YutSupport : MonoBehaviour
         }
         else
         {
-            var front = yut.Where(x => x.Value.ContainsKey(1)).ToList().Count;
-            var frontMarked = yut.Where(x => x.Value.ContainsKey(1) && x.Value.ContainsValue(true)).ToList().Count;
-            var back = yut.Where(x => x.Value.ContainsKey(2)).ToList().Count;
+            var front = Yut.Where(x => x.Value.ContainsKey(1)).ToList().Count;
+            var frontMarked = Yut.Where(x => x.Value.ContainsKey(1) && x.Value.ContainsValue(true)).ToList().Count;
+            var back = Yut.Where(x => x.Value.ContainsKey(2)).ToList().Count;
             
             // calculate yut
             switch (front)
@@ -142,24 +146,36 @@ public class YutSupport : MonoBehaviour
                 case 0:
                     MoveCount(5);
                     BoardGame.DoubleChance = true;
+                    GameLog.AddMoveLog(_throwType, BoardGame.MoveCountToStr(5));
                     break;
                 // Do
                 case 1:
-                    if (frontMarked == 1) MoveCount(-1);
-                    else MoveCount(1);
+                    if (frontMarked == 1)
+                    {
+                        MoveCount(-1);
+                        GameLog.AddMoveLog(_throwType, BoardGame.MoveCountToStr(-1));
+                    }
+                    else
+                    {
+                        MoveCount(1);
+                        GameLog.AddMoveLog(_throwType, BoardGame.MoveCountToStr(1));
+                    }
                     break;
                 // Gae
                 case 2:
                     MoveCount(2);
+                    GameLog.AddMoveLog(_throwType, BoardGame.MoveCountToStr(2));
                     break;
                 // Geol
                 case 3:
                     MoveCount(3);
+                    GameLog.AddMoveLog(_throwType, BoardGame.MoveCountToStr(3));
                     break;
                 // Yut
                 case 4:
                     MoveCount(4);
                     BoardGame.DoubleChance = true;
+                    GameLog.AddMoveLog(_throwType, BoardGame.MoveCountToStr(4));
                     break;
             }
             

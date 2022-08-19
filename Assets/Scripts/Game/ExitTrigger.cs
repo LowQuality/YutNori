@@ -17,18 +17,22 @@ public class ExitTrigger : MonoBehaviour
             case "FF0000":
                 Destroy(col.gameObject);
                 BoardGame.RedTokenCount -= saveHorseCount;
+                GameLog.AddExitLog(BoardGame.RedTokenCount);
                 break;
             case "00FF00":
                 Destroy(col.gameObject);
                 BoardGame.GreenTokenCount -= saveHorseCount;
+                GameLog.AddExitLog(BoardGame.GreenTokenCount);
                 break;
             case "0000FF":
                 Destroy(col.gameObject);
                 BoardGame.BlueTokenCount -= saveHorseCount;
+                GameLog.AddExitLog(BoardGame.BlueTokenCount);
                 break;
             case "FFFF00":
                 Destroy(col.gameObject);
                 BoardGame.YellowTokenCount -= saveHorseCount;
+                GameLog.AddExitLog(BoardGame.YellowTokenCount);
                 break;
         }
         

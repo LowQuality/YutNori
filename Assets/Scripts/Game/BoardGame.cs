@@ -87,19 +87,27 @@ public class BoardGame : MonoBehaviour
         // Check Winner
         if (RedTokenCount <= 0)
         {
-            End(CharacterSelector.UserInfo.FirstOrDefault(r => r.Value.Contains("빨간색")).Key);
+            var data = CharacterSelector.UserInfo.FirstOrDefault(r => r.Value.Contains("빨간색"));
+            GameLog.AddWinLog(data.Value);
+            End(data.Key);
         }
         else if (GreenTokenCount <= 0)
         {
-            End(CharacterSelector.UserInfo.FirstOrDefault(r => r.Value.Contains("초록색")).Key);
+            var data = CharacterSelector.UserInfo.FirstOrDefault(r => r.Value.Contains("초록색"));
+            GameLog.AddWinLog(data.Value);
+            End(data.Key);
         }
         else if (BlueTokenCount <= 0)
         {
-            End(CharacterSelector.UserInfo.FirstOrDefault(r => r.Value.Contains("파란색")).Key);
+            var data = CharacterSelector.UserInfo.FirstOrDefault(r => r.Value.Contains("파란색"));
+            GameLog.AddWinLog(data.Value);
+            End(data.Key);
         }
         else if (YellowTokenCount <= 0)
         {
-            End(CharacterSelector.UserInfo.FirstOrDefault(r => r.Value.Contains("노란색")).Key);
+            var data = CharacterSelector.UserInfo.FirstOrDefault(r => r.Value.Contains("노란색"));
+            GameLog.AddWinLog(data.Value);
+            End(data.Key);
         }
     }
 
@@ -110,7 +118,7 @@ public class BoardGame : MonoBehaviour
     }
     
     // Change MoveCount to String
-    private static string MoveCountToStr(int a)
+    public static string MoveCountToStr(int a)
     {
         return a switch
         {

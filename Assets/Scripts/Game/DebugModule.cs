@@ -31,6 +31,8 @@ public class DebugModule : MonoBehaviour
         BoardGame.ShowedValue = true;
         OverLap.Finished = false;
         BoardGame.DroppedYut = true;
+        
+        GameLog.AddMoveLog("디버그 모드", BoardGame.MoveCountToStr(0));
     }
 
     public void Do()
@@ -41,6 +43,8 @@ public class DebugModule : MonoBehaviour
         BoardGame.ShowedValue = true;
         OverLap.Finished = false;
         BoardGame.DroppedYut = false;
+        
+        GameLog.AddMoveLog("디버그 모드", BoardGame.MoveCountToStr(1));
     }
 
     public void Gae()
@@ -51,6 +55,8 @@ public class DebugModule : MonoBehaviour
         BoardGame.ShowedValue = true;
         OverLap.Finished = false;
         BoardGame.DroppedYut = false;
+        
+        GameLog.AddMoveLog("디버그 모드", BoardGame.MoveCountToStr(2));
     }
 
     public void Geol()
@@ -61,6 +67,8 @@ public class DebugModule : MonoBehaviour
         BoardGame.ShowedValue = true;
         OverLap.Finished = false;
         BoardGame.DroppedYut = false;
+        
+        GameLog.AddMoveLog("디버그 모드", BoardGame.MoveCountToStr(3));
     }
 
     public void Yut()
@@ -71,6 +79,8 @@ public class DebugModule : MonoBehaviour
         BoardGame.ShowedValue = true;
         OverLap.Finished = false;
         BoardGame.DroppedYut = false;
+        
+        GameLog.AddMoveLog("디버그 모드", BoardGame.MoveCountToStr(4));
     }
 
     public void Mo()
@@ -81,6 +91,8 @@ public class DebugModule : MonoBehaviour
         BoardGame.ShowedValue = true;
         OverLap.Finished = false;
         BoardGame.DroppedYut = false;
+        
+        GameLog.AddMoveLog("디버그 모드", BoardGame.MoveCountToStr(5));
     }
 
     public void BackDo()
@@ -97,6 +109,8 @@ public class DebugModule : MonoBehaviour
         {
             BoardGame.DroppedYut = true;
         }
+        
+        GameLog.AddMoveLog("디버그 모드", BoardGame.MoveCountToStr(-1));
     }
 }
 }

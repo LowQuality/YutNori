@@ -58,6 +58,8 @@ public class CharacterSelector : MonoBehaviour
             BoardGame.MoveCount = 0;
             OverLap.Finished = false;
             HorseMovement.MoveEnabled = false;
+
+            GameLog.Logs.Clear();
             // Init //
             
             SceneAsyncLoadManager.SetSceneName("BoardGame");
