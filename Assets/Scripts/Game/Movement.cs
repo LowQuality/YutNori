@@ -51,7 +51,6 @@ public class Movement : MonoBehaviour
     public GameObject bMoDo;
     public GameObject bMoGae;
     public GameObject salyeo;
-
     public GameObject anjjyeo;
     // End //
 
@@ -242,7 +241,7 @@ public class Movement : MonoBehaviour
             12 => lGae,
             13 => lGeol,
             14 => lYut,
-            15 => lMo // *
+            15 => lMo
             ,
             16 => nDo,
             17 => nGae,
@@ -251,15 +250,45 @@ public class Movement : MonoBehaviour
             20 => startPlace,
             21 => exit // **
             ,
-            50 => bang, // *
+            50 => rMo, // *
             51 => fMoDo,
             52 => fMoGae,
-            53 => sYut,
-            54 => sMo,
-            55 => bMoDo,
-            56 => bMoGae,
-            57 => salyeo,
-            58 => anjjyeo,
+            53 => bang, // *
+            54 => sYut,
+            55 => sMo,
+            56 => lMo,
+            57 => nDo,
+            58 => nGae,
+            59 => nGeol,
+            60 => nYut,
+            61 => startPlace,
+            62 => exit // **
+            ,
+            70 => bMo, // *
+            71 => bMoDo,
+            72 => bMoGae,
+            73 => bang, // *
+            74 => salyeo,
+            75 => anjjyeo,
+            76 => startPlace,
+            77 => exit // **
+            ,
+            90 => bang, // *
+            91 => sYut,
+            92 => sMo,
+            93 => lMo,
+            94 => nDo,
+            95 => nGae,
+            96 => nGeol,
+            97 => nYut,
+            98 => startPlace,
+            99 => exit // **
+            ,
+            110 => bang, // *
+            111 => salyeo,
+            112 => anjjyeo,
+            113 => startPlace,
+            114 => exit, // **
             _ => null
         };
     }

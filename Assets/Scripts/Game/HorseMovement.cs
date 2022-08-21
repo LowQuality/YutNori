@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,25 +42,102 @@ public class HorseMovement : MonoBehaviour
 
         if (!MoveEnabled && BoardGame.MoveCount != 0)
         {
+            var horseMovedCount = Movement.Horses[Convert.ToInt32(gameObject.transform.GetChild(1).name)][0].Item1;
+
             // BackDo Support
-            if (Movement.Horses[Convert.ToInt32(gameObject.transform.GetChild(1).name)][0].Item1 == 0)
+            if (horseMovedCount == 0)
                 Movement.UpdateHorsesMoveCount(Convert.ToInt32(gameObject.transform.GetChild(1).name), 20);
-            
+
             MoveEnabled = true;
-            // Get Required Information
-            var movedCount = Movement.Horses[Convert.ToInt32(gameObject.transform.GetChild(1).name)][0].Item1;
-            Movement.UpdateHorsesMoveCount(Convert.ToInt32(gameObject.transform.GetChild(1).name), movedCount);
+
+            GameObject highlight;
+            GameObject newMoveGameObject;
+            GameObject storeHorseMoveCount;
+            switch (horseMovedCount)
+            {
+                // rMo
+                case 5:
+                    storeHorseMoveCount = new GameObject
+                    {
+                        name = (50 + BoardGame.MoveCount).ToString()
+                    };
+                    newMoveGameObject = Movement.Instance.MoveNewPlace(Convert.ToInt32(storeHorseMoveCount.name));
+                    highlight = Instantiate(Movement.Instance.moveTo, newMoveGameObject.transform.position,
+                        Quaternion.identity, GameObject.Find("Container").transform);
+                    storeHorseMoveCount.transform.SetParent(highlight.transform);
+                    Highlights.Add(highlight);
+                    break;
+                // bMo
+                case 10:
+                    storeHorseMoveCount = new GameObject
+                    {
+                        name = (70 + BoardGame.MoveCount).ToString()
+                    };
+                    newMoveGameObject = Movement.Instance.MoveNewPlace(Convert.ToInt32(storeHorseMoveCount.name));
+                    highlight = Instantiate(Movement.Instance.moveTo, newMoveGameObject.transform.position,
+                        Quaternion.identity, GameObject.Find("Container").transform);
+                    storeHorseMoveCount.transform.SetParent(highlight.transform);
+                    Highlights.Add(highlight);
+                    break;
+            }
             
-            int newMoveCount;
-            if (movedCount + BoardGame.MoveCount > 21) newMoveCount = 21;
-            else newMoveCount = movedCount + BoardGame.MoveCount;
+            var storeHorseMoveCount2 = new GameObject
+            {
+                name = horseMovedCount.ToString()
+            };
+
+            var moveCount = Convert.ToInt32(storeHorseMoveCount2.name);
+            var willMoveCount = moveCount + BoardGame.MoveCount;
+
+            if (
+                (Enumerable.Range(0, 21).Contains(horseMovedCount) && Enumerable.Range(22, 27).Contains(willMoveCount))
+                ||
+                (Enumerable.Range(50, 12).Contains(horseMovedCount) && Enumerable.Range(62, 7).Contains(willMoveCount))
+                ||
+                (Enumerable.Range(70, 7).Contains(horseMovedCount) && Enumerable.Range(77, 11).Contains(willMoveCount))
+                ||
+                (Enumerable.Range(90, 9).Contains(horseMovedCount) && Enumerable.Range(99, 9).Contains(willMoveCount))
+                ||
+                (Enumerable.Range(110, 4).Contains(horseMovedCount) && Enumerable.Range(114, 5).Contains(willMoveCount))
+                )
+            {
+                storeHorseMoveCount2.name = 21.ToString();
+            }
+            else
+            {
+                storeHorseMoveCount2.name = (horseMovedCount + BoardGame.MoveCount).ToString();
+            }
             
-            var newMoveGameObject = Movement.Instance.MoveNewPlace(newMoveCount);
-            
-            var highlight = Instantiate(Movement.Instance.moveTo, newMoveGameObject.transform.position, Quaternion.identity);
-            highlight.transform.SetParent(GameObject.Find("Container").transform);
-            Highlights.Add(highlight);
-            _waitingHorse = gameObject;
+            if (horseMovedCount is 53 or 73)
+            {
+                storeHorseMoveCount = new GameObject
+                {
+                    name = (90 + BoardGame.MoveCount).ToString()
+                };
+                newMoveGameObject = Movement.Instance.MoveNewPlace(Convert.ToInt32(storeHorseMoveCount.name));
+                highlight = Instantiate(Movement.Instance.moveTo, newMoveGameObject.transform.position,
+                    Quaternion.identity, GameObject.Find("Container").transform);
+                storeHorseMoveCount.transform.SetParent(highlight.transform);
+                Highlights.Add(highlight);
+
+                storeHorseMoveCount2.name = 110 + BoardGame.MoveCount > 114 ? 114.ToString() : (110 + BoardGame.MoveCount).ToString();
+                newMoveGameObject = Movement.Instance.MoveNewPlace(Convert.ToInt32(storeHorseMoveCount2.name));
+                highlight = Instantiate(Movement.Instance.moveTo, newMoveGameObject.transform.position,
+                    Quaternion.identity, GameObject.Find("Container").transform);
+                storeHorseMoveCount2.transform.SetParent(highlight.transform);
+                Highlights.Add(highlight);
+                _waitingHorse = gameObject;
+            }
+            else
+            {
+                newMoveGameObject = Movement.Instance.MoveNewPlace(Convert.ToInt32(storeHorseMoveCount2.name));
+
+                highlight = Instantiate(Movement.Instance.moveTo, newMoveGameObject.transform.position,
+                    Quaternion.identity, GameObject.Find("Container").transform);
+                storeHorseMoveCount2.transform.SetParent(highlight.transform);
+                Highlights.Add(highlight);
+                _waitingHorse = gameObject;
+            }
         }
         else
         {
@@ -68,11 +145,11 @@ public class HorseMovement : MonoBehaviour
             _waitingHorse = null;
         }
     }
+
     public void Apply()
     {
         var savePosition = gameObject.transform.position;
         var saveHorseCount = _waitingHorse.transform.GetChild(0).name;
-        var movedCount = Movement.Horses[Convert.ToInt32(_waitingHorse.transform.GetChild(1).name)][0].Item1 + BoardGame.MoveCount;
         
         Movement.Horses.Remove(Convert.ToInt32(_waitingHorse.transform.GetChild(1).name));
         
@@ -127,7 +204,7 @@ public class HorseMovement : MonoBehaviour
         _movedHorse.transform.position = savePosition;
         _movedHorse.transform.SetParent(Movement.Instance.horsesGameObject.transform);
         Movement.Horses.Add(Movement.CreatedHorseCount,
-            new List<Tuple<int, GameObject>> { new(movedCount, _movedHorse) });
+            new List<Tuple<int, GameObject>> { new(Convert.ToInt32(gameObject.transform.GetChild(0).name), _movedHorse) });
 
         // AddCounter
         var createdHorseCounter = new GameObject
