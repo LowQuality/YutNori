@@ -50,6 +50,15 @@ public class HorseMovement : MonoBehaviour
 
             MoveEnabled = true;
 
+            horseMovedCount = horseMovedCount switch
+            {
+                50 => 5,
+                70 => 10,
+                90 => 53,
+                110 => 73,
+                _ => horseMovedCount
+            };
+
             GameObject highlight;
             GameObject newMoveGameObject;
             GameObject storeHorseMoveCount;
@@ -108,7 +117,7 @@ public class HorseMovement : MonoBehaviour
                 storeHorseMoveCount2.name = (horseMovedCount + BoardGame.MoveCount).ToString();
             }
             
-            if (horseMovedCount is 53 or 73)
+            if (horseMovedCount is 53 or 73 && BoardGame.MoveCount != -1)
             {
                 storeHorseMoveCount = new GameObject
                 {
