@@ -56,7 +56,7 @@ public class HorseMovement : MonoBehaviour
             switch (horseMovedCount)
             {
                 // rMo
-                case 5:
+                case 5 when BoardGame.MoveCount != -1:
                     storeHorseMoveCount = new GameObject
                     {
                         name = (50 + BoardGame.MoveCount).ToString()
@@ -68,7 +68,7 @@ public class HorseMovement : MonoBehaviour
                     Highlights.Add(highlight);
                     break;
                 // bMo
-                case 10:
+                case 10 when BoardGame.MoveCount != -1:
                     storeHorseMoveCount = new GameObject
                     {
                         name = (70 + BoardGame.MoveCount).ToString()
