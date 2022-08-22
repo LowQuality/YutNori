@@ -89,6 +89,8 @@ public class OverLap : MonoBehaviour
                 var overLapOldHorse = Horses[0].transform.GetChild(0).name;
                 var overLapNewHorse = Horses[1].transform.GetChild(0).name;
 
+                var movedCount = Movement.Horses[oldHorse][0].Item1;
+
                 // Remove Old Horses //
                 Movement.Horses.Remove(oldHorse);
                 Movement.Horses.Remove(newHorse);
@@ -152,7 +154,7 @@ public class OverLap : MonoBehaviour
                 if (resolvedHorse == null) return;
                 resolvedHorse.transform.SetParent(Movement.Instance.horsesGameObject.transform);
                 Movement.Horses.Add(Movement.CreatedHorseCount,
-                    new List<Tuple<int, GameObject>> { new(MoveNewPlace(gameObject.name), resolvedHorse) });
+                    new List<Tuple<int, GameObject>> { new(movedCount, resolvedHorse) });
 
                 // AddCounter
                 var createdHorseCounter = new GameObject
@@ -201,44 +203,6 @@ public class OverLap : MonoBehaviour
             "00FF00" => CharacterSelector.UserInfo.FirstOrDefault(x => x.Value[2] == "1").Key,
             "0000FF" => CharacterSelector.UserInfo.FirstOrDefault(x => x.Value[2] == "2").Key,
             "FFFF00" => CharacterSelector.UserInfo.FirstOrDefault(x => x.Value[2] == "3").Key,
-            _ => -1
-        };
-    }
-    
-    public static int MoveNewPlace(string a)
-    {
-        return a switch
-        {
-            "출발" => 0,
-            "도" => 1,
-            "개" => 2,
-            "걸" => 3,
-            "윷" => 4,
-            "모" => 5,
-            "뒷도" => 6,
-            "뒷개" => 7,
-            "뒷걸" => 8,
-            "뒷윷" => 9,
-            "뒷모" => 10,
-            "쩌도" => 11,
-            "쩌개" => 12,
-            "쩌걸" => 13,
-            "쩌윷" => 14,
-            "쩌모" => 15,
-            "날도" => 16,
-            "날개" => 17,
-            "날걸" => 18,
-            "날윷" => 19,
-            // "날모" => 20,
-            "방" => 50,
-            "모도" => 51,
-            "모개" => 52,
-            "속윷" => 53,
-            "속모" => 54,
-            "뒷모도" => 55,
-            "뒷모개" => 56,
-            "사려" => 57,
-            "안쪄" => 58,
             _ => -1
         };
     }

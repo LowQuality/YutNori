@@ -44,14 +44,11 @@ public class HorseMovement : MonoBehaviour
         {
             var horseMovedCount = Movement.Horses[Convert.ToInt32(gameObject.transform.GetChild(1).name)][0].Item1;
 
-            // BackDo Support
-            if (horseMovedCount == 0)
-                Movement.UpdateHorsesMoveCount(Convert.ToInt32(gameObject.transform.GetChild(1).name), 20);
-
             MoveEnabled = true;
 
             horseMovedCount = horseMovedCount switch
             {
+                0 => 20,
                 50 => 5,
                 70 => 10,
                 90 => 53,
