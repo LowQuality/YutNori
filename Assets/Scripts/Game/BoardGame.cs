@@ -27,7 +27,7 @@ public class BoardGame : MonoBehaviour
     
     // Game Variables
     public static int NowTurn;
-    public static readonly int MaxTurn = PlayerCountSetting.PlayerCount - 1;
+    public static int MaxTurn;
     public static int MoveCount;
     public static bool DoubleChance;
     public static bool ThrewYut;
@@ -35,14 +35,14 @@ public class BoardGame : MonoBehaviour
     public static bool DroppedYut;
     
     // Token Count (Normal = Not Exited, N = Not in the Board)
-    public static int RedTokenCount = HorseCountSetting.HorseCount;
-    public static int GreenTokenCount = HorseCountSetting.HorseCount;
-    public static int BlueTokenCount = HorseCountSetting.HorseCount;
-    public static int YellowTokenCount = HorseCountSetting.HorseCount;
-    public static int NRedTokenCount = HorseCountSetting.HorseCount;
-    public static int NGreenTokenCount = HorseCountSetting.HorseCount;
-    public static int NBlueTokenCount = HorseCountSetting.HorseCount;
-    public static int NYellowTokenCount = HorseCountSetting.HorseCount;
+    public static int RedTokenCount;
+    public static int GreenTokenCount;
+    public static int BlueTokenCount;
+    public static int YellowTokenCount;
+    public static int NRedTokenCount;
+    public static int NGreenTokenCount;
+    public static int NBlueTokenCount;
+    public static int NYellowTokenCount;
 
     private void Start()
     {

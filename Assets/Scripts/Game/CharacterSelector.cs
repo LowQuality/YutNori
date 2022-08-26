@@ -28,7 +28,7 @@ public class CharacterSelector : MonoBehaviour
     private void Start()
     {
         _selectedUserCounter = 0;
-        UserInfo = new Dictionary<int, List<string>>();
+        UserInfo.Clear();
         selectedUserCounterText.text = $"{_selectedUserCounter + 1}/{_selectedUserCounterMax}";
     }
     
@@ -50,6 +50,8 @@ public class CharacterSelector : MonoBehaviour
             BoardGame.NGreenTokenCount = HorseCountSetting.HorseCount;
             BoardGame.NBlueTokenCount = HorseCountSetting.HorseCount;
             BoardGame.NYellowTokenCount = HorseCountSetting.HorseCount;
+            
+            BoardGame.MaxTurn = PlayerCountSetting.PlayerCount - 1;
             
             BoardGame.DoubleChance = false;
             BoardGame.ThrewYut = false;
