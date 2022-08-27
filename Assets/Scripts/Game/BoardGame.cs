@@ -25,6 +25,9 @@ public class BoardGame : MonoBehaviour
     public TextMeshProUGUI blueToken;
     public TextMeshProUGUI yellowToken;
     
+    public GameObject normalYut;
+    public GameObject physicsYut;
+    
     // Game Variables
     public static int NowTurn;
     public static int MaxTurn;
@@ -60,6 +63,9 @@ public class BoardGame : MonoBehaviour
             debugModule.SetActive(true);
         }
         NowTurn = 0;
+
+        normalYut.SetActive(YutModeSetting.Mode == 0);
+        physicsYut.SetActive(YutModeSetting.Mode == 1);
     }
 
     private void Update()

@@ -10,7 +10,7 @@ public class PlayerCountSetting : MonoBehaviour
     public TextMeshProUGUI playerCountText;
     
     // Player Count
-    public static int PlayerCount;
+    public static int PlayerCount = 1;
     
     // Player Max/Min Count
     private const int PlayerCountMin = 1;
@@ -35,7 +35,7 @@ public class PlayerCountSetting : MonoBehaviour
     // Set Default Player Count
     private void Start()
     {
-        PlayerCount = PlayerCountMin;
+        // PlayerCount = PlayerCountMin;
         playerCountText.text = PlayerCount.ToString();
     }
 }

@@ -9,7 +9,7 @@ public class HorseCountSetting : MonoBehaviour
     public TextMeshProUGUI horseCounterText;
     
     // Horse Count
-    public static int HorseCount;
+    public static int HorseCount = 1;
     
     // Horse Max/Min Count
     private const int HorseCountMin = 1;
@@ -34,7 +34,7 @@ public class HorseCountSetting : MonoBehaviour
     // Set Default Horse Count
     private void Start()
     {
-        HorseCount = HorseCountMin;
+        // HorseCount = HorseCountMin;
         horseCounterText.text = HorseCount.ToString();
     }
 }

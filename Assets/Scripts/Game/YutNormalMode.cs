@@ -6,12 +6,12 @@ using Random = System.Random;
 
 namespace Game
 {
-public class YutSupport : MonoBehaviour
+public class YutNormalMode : MonoBehaviour
 {
     public GameObject previous;
     public GameObject calculating;
     public GameObject calculated;
-    public GameObject droppedYutCheck;
+    public GameObject droppedYut;
 
     private static string _throwType;
     
@@ -106,7 +106,7 @@ public class YutSupport : MonoBehaviour
         previous.SetActive(!BoardGame.ThrewYut);
         calculating.SetActive(BoardGame.ThrewYut && !BoardGame.ShowedValue);
         calculated.SetActive(BoardGame.ThrewYut && BoardGame.ShowedValue);
-        droppedYutCheck.SetActive(BoardGame.ThrewYut && BoardGame.ShowedValue && BoardGame.DroppedYut);
+        droppedYut.SetActive(BoardGame.ThrewYut && BoardGame.ShowedValue && BoardGame.DroppedYut);
     }
 
     private static void MoveCount(int a)
@@ -119,7 +119,7 @@ public class YutSupport : MonoBehaviour
 
     private static void CalculateYut()
     {
-        // Mark Rendomly
+        // Mark Randomly
         var random = new Random();
         var randomMark = random.Next(0, 3);
         Yut.ElementAt(randomMark).Value[0] = true;
