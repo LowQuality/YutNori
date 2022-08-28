@@ -80,7 +80,8 @@ public class YutPhysicsMode : MonoBehaviour
                     break;
             }
         }
-
+        Time.timeScale = YutModeSetting.PlayBackRate;
+        
         StartCoroutine(CalculateYut());
     }
 
@@ -144,6 +145,8 @@ public class YutPhysicsMode : MonoBehaviour
                 GameLog.AddMoveLog(ThrowType, BoardGame.MoveCountToStr(5));
                 break;
         }
+        
+        Time.timeScale = 1.0f;
 
         yield return new WaitUntil(() => BoardGame.ShowedValue);
         if (BoardGame.MoveCount == -1 &&
