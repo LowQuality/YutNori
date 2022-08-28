@@ -54,7 +54,7 @@ public class YutPhysicsThrow : MonoBehaviour
 
     private IEnumerator UpdateYut()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(1.5f);
         var anglesZ = yut.transform.eulerAngles.z;
         anglesZ %= 360;
         YutPhysicsMode.Yut.Add(YutPhysicsMode.Yut.Count,

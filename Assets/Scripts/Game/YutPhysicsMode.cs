@@ -13,6 +13,7 @@ public class YutPhysicsMode : MonoBehaviour
     public GameObject calculated;
     public GameObject droppedYut;
     public GameObject yutCam;
+    public GameObject yutCamDisableButton;
 
     public List<GameObject> spawner;
     public GameObject yut;
@@ -36,17 +37,16 @@ public class YutPhysicsMode : MonoBehaviour
         
         calculating.SetActive(BoardGame.ThrewYut && !BoardGame.ShowedValue);
         yutCam.SetActive(BoardGame.ThrewYut && !BoardGame.ShowedValue);
-        
         calculated.SetActive(BoardGame.ThrewYut && BoardGame.ShowedValue);
         droppedYut.SetActive(BoardGame.ThrewYut && BoardGame.ShowedValue && BoardGame.DroppedYut);
     }
     
-    private static void MoveCount(int a)
+    private void MoveCount(int a)
     {
         BoardGame.MoveCount = a;
         BoardGame.DoubleChance = false;
         BoardGame.ThrewYut = true;
-        BoardGame.ShowedValue = true;
+        StartCoroutine(DisableYutCam());
     }
 
     public void DroppedYutCheck()
@@ -84,7 +84,19 @@ public class YutPhysicsMode : MonoBehaviour
         StartCoroutine(CalculateYut());
     }
 
-    private static IEnumerator CalculateYut()
+    public void DisableYutCamImmediately()
+    {
+        BoardGame.ShowedValue = true;
+    }
+
+    private IEnumerator DisableYutCam()
+    {
+        yutCamDisableButton.SetActive(true);
+        yield return new WaitForSeconds(1.0f);
+        BoardGame.ShowedValue = true;
+    }
+
+    private IEnumerator CalculateYut()
     {
         yield return new WaitUntil(() => Yut.Count == 4);
 
@@ -133,13 +145,15 @@ public class YutPhysicsMode : MonoBehaviour
                 break;
         }
 
+        yield return new WaitUntil(() => BoardGame.ShowedValue);
         if (BoardGame.MoveCount == -1 &&
             Movement.StoredHorseCount(Convert.ToInt32(CharacterSelector.UserInfo[BoardGame.NowTurn][2])) ==
             Movement.AllHorseCount(Convert.ToInt32(CharacterSelector.UserInfo[BoardGame.NowTurn][2])))
         {
             BoardGame.DroppedYut = true;
         }
-
+        
+        yutCamDisableButton.SetActive(false);
         foreach (var t in YutGameObject)
         {
             Destroy(t);

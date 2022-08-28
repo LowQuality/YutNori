@@ -28,6 +28,7 @@ public class YutModeSetting : MonoBehaviour
             _ => modeTxt.text
         };
         blocker.SetActive(Mode != 1);
+        warningTxt.SetActive(Mode == 1);
     }
     
     public void IncreasePlayBackRate()
