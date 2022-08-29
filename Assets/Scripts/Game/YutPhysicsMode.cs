@@ -23,6 +23,12 @@ public class YutPhysicsMode : MonoBehaviour
 
     public static readonly Dictionary<int, Dictionary<int, bool>> Yut = new();
     public static readonly List<GameObject> YutGameObject = new();
+    
+    public static YutPhysicsMode Instance;
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -156,6 +162,17 @@ public class YutPhysicsMode : MonoBehaviour
             BoardGame.DroppedYut = true;
         }
         
+        yutCamDisableButton.SetActive(false);
+        foreach (var t in YutGameObject)
+        {
+            Destroy(t);
+        }
+        YutGameObject.Clear();
+    }
+
+    public void ResetYut()
+    {
+        if (YutModeSetting.Mode != 1) return;
         yutCamDisableButton.SetActive(false);
         foreach (var t in YutGameObject)
         {

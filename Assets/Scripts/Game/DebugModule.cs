@@ -21,6 +21,7 @@ public class DebugModule : MonoBehaviour
         BoardGame.DroppedYut = false;
         BoardGame.MoveCount = 0;
         OverLap.Finished = false;
+        YutPhysicsMode.Instance.ResetYut();
     }
     
     public void Dropped()
@@ -31,6 +32,7 @@ public class DebugModule : MonoBehaviour
         BoardGame.ShowedValue = true;
         OverLap.Finished = false;
         BoardGame.DroppedYut = true;
+        YutPhysicsMode.Instance.ResetYut();
         
         GameLog.AddMoveLog("디버그 모드", BoardGame.MoveCountToStr(0));
     }
@@ -43,6 +45,7 @@ public class DebugModule : MonoBehaviour
         BoardGame.ShowedValue = true;
         OverLap.Finished = false;
         BoardGame.DroppedYut = false;
+        YutPhysicsMode.Instance.ResetYut();
         
         GameLog.AddMoveLog("디버그 모드", BoardGame.MoveCountToStr(1));
     }
@@ -55,6 +58,7 @@ public class DebugModule : MonoBehaviour
         BoardGame.ShowedValue = true;
         OverLap.Finished = false;
         BoardGame.DroppedYut = false;
+        YutPhysicsMode.Instance.ResetYut();
         
         GameLog.AddMoveLog("디버그 모드", BoardGame.MoveCountToStr(2));
     }
@@ -67,6 +71,7 @@ public class DebugModule : MonoBehaviour
         BoardGame.ShowedValue = true;
         OverLap.Finished = false;
         BoardGame.DroppedYut = false;
+        YutPhysicsMode.Instance.ResetYut();
         
         GameLog.AddMoveLog("디버그 모드", BoardGame.MoveCountToStr(3));
     }
@@ -79,6 +84,7 @@ public class DebugModule : MonoBehaviour
         BoardGame.ShowedValue = true;
         OverLap.Finished = false;
         BoardGame.DroppedYut = false;
+        YutPhysicsMode.Instance.ResetYut();
         
         GameLog.AddMoveLog("디버그 모드", BoardGame.MoveCountToStr(4));
     }
@@ -91,6 +97,7 @@ public class DebugModule : MonoBehaviour
         BoardGame.ShowedValue = true;
         OverLap.Finished = false;
         BoardGame.DroppedYut = false;
+        YutPhysicsMode.Instance.ResetYut();
         
         GameLog.AddMoveLog("디버그 모드", BoardGame.MoveCountToStr(5));
     }
@@ -102,14 +109,15 @@ public class DebugModule : MonoBehaviour
         BoardGame.ThrewYut = true;
         BoardGame.ShowedValue = true;
         OverLap.Finished = false;
-        
+        YutPhysicsMode.Instance.ResetYut();
+
         if (BoardGame.MoveCount == -1 &&
             Movement.StoredHorseCount(Convert.ToInt32(CharacterSelector.UserInfo[BoardGame.NowTurn][2])) ==
             Movement.AllHorseCount(Convert.ToInt32(CharacterSelector.UserInfo[BoardGame.NowTurn][2])))
         {
             BoardGame.DroppedYut = true;
         }
-        
+
         GameLog.AddMoveLog("디버그 모드", BoardGame.MoveCountToStr(-1));
     }
 }
