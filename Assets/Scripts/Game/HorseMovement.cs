@@ -40,6 +40,18 @@ public class HorseMovement : MonoBehaviour
         if (CharacterSelector.UserInfo[BoardGame.NowTurn][1][1..] !=
             gameObject.GetComponent<Image>().color.ToHexString()[..6]) return;
 
+        if (gameObject != _waitingHorse && MoveEnabled)
+        {
+            MoveEnabled = false;
+            _movedHorse = gameObject;
+            
+            foreach (var t in Highlights)
+            {
+                Destroy(t);
+            }
+            Highlights.Clear();
+        }
+        
         if (!MoveEnabled && BoardGame.MoveCount != 0)
         {
             var horseMovedCount = Movement.Horses[Convert.ToInt32(gameObject.transform.GetChild(1).name)][0].Item1;
