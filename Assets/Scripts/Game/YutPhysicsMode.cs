@@ -139,13 +139,13 @@ public class YutPhysicsMode : MonoBehaviour
                 GameLog.AddMoveLog(ThrowType, BoardGame.MoveCountToStr(3));
                 break;
             // Yut
-            case 0:
+            case 4:
                 MoveCount(4);
                 BoardGame.DoubleChance = true;
                 GameLog.AddMoveLog(ThrowType, BoardGame.MoveCountToStr(4));
                 break;
             // Mo
-            case 4:
+            case 0:
                 MoveCount(5);
                 BoardGame.DoubleChance = true;
                 GameLog.AddMoveLog(ThrowType, BoardGame.MoveCountToStr(5));
