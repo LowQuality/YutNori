@@ -110,7 +110,8 @@ public class YutPhysicsMode : MonoBehaviour
         var front = Yut.Where(x => x.Value.ContainsKey(1)).ToList().Count;
         var frontMarked = Yut.Where(x => x.Value.ContainsKey(1) && x.Value.ContainsValue(true)).ToList().Count;
         var back = Yut.Where(x => x.Value.ContainsKey(2)).ToList().Count;
-        Debug.Log($"front: {front} | frontMarked: {frontMarked} | back: {back}");
+        var drop = Yut.Where(x => x.Value.ContainsKey(3)).ToList().Count;
+        Debug.Log($"front: {front} | frontMarked: {frontMarked} | back: {back} | drop: {drop}");
 
         // calculate yut
         switch (front)
@@ -150,6 +151,15 @@ public class YutPhysicsMode : MonoBehaviour
                 BoardGame.DoubleChance = true;
                 GameLog.AddMoveLog(ThrowType, BoardGame.MoveCountToStr(5));
                 break;
+        }
+
+        if (drop >= 1)
+        {
+            BoardGame.MoveCount = 0;
+            BoardGame.DoubleChance = false;
+            BoardGame.ShowedValue = true;
+            BoardGame.DroppedYut = true;
+            GameLog.AddMoveLog("물리", BoardGame.MoveCountToStr(0));
         }
         
         Time.timeScale = 1.0f;

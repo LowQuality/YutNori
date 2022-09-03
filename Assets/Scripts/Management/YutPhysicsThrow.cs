@@ -40,23 +40,14 @@ public class YutPhysicsThrow : MonoBehaviour
     
     public void Update()
     {
-        Debug.DrawRay(transform.position + Vector3.up * 0.1f, Vector3.down * 70, Color.red);
-        if (yut.transform.position.y < -50)
+        if (yut.transform.position.y < -5)
         {
             YutPhysicsMode.Yut.Add(YutPhysicsMode.Yut.Count, new Dictionary<int, bool> { { 3, _isMarked } });
-            foreach (var t in YutPhysicsMode.YutGameObject)
-            {
-                Destroy(t);
-            }
-
-            BoardGame.MoveCount = 0;
-            BoardGame.DoubleChance = false;
-            BoardGame.ShowedValue = true;
-            BoardGame.DroppedYut = true;
-            GameLog.AddMoveLog("물리", BoardGame.MoveCountToStr(0));
+            Destroy(gameObject);
         }
         
-        var hits = Physics.RaycastNonAlloc(transform.position + Vector3.up * 0.1f, Vector3.down, _results, 70.0f);
+        Debug.DrawRay(transform.position + Vector3.up * 0.1f, Vector3.down * 85, Color.red);
+        var hits = Physics.RaycastNonAlloc(transform.position + Vector3.up * 0.1f, Vector3.down, _results, 85.0f);
         
         for (var i = 0; i < hits; i++)
         {
@@ -70,7 +61,8 @@ public class YutPhysicsThrow : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
         yutRigidbody.isKinematic = true;
-        
+
+        // is not Drop
         var anglesZ = yut.transform.eulerAngles.z;
         anglesZ %= 360;
         YutPhysicsMode.Yut.Add(YutPhysicsMode.Yut.Count,
@@ -78,12 +70,5 @@ public class YutPhysicsThrow : MonoBehaviour
                 ? new Dictionary<int, bool> { { 2, _isMarked } }
                 : new Dictionary<int, bool> { { 1, _isMarked } });
     }
-
-    // public void OnCollisionEnter(Collision other)
-    // {
-    //     if (!other.gameObject.CompareTag("Ground") || _isStartedCoroutine) return;
-    //     StartCoroutine(UpdateYut());
-    //     _isStartedCoroutine = true;
-    // }
 }
 }
