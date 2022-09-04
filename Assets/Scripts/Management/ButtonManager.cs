@@ -15,12 +15,6 @@ public class ButtonManager : MonoBehaviour
         SceneAsyncLoadManager.SetSceneName("Main");
         SceneManager.LoadScene("Loading");
     }
-    
-    public void Replay()
-    {
-        SceneAsyncLoadManager.SetSceneName("Replay");
-        SceneManager.LoadScene("Loading");
-    }
 
     public void Helper()
     {
