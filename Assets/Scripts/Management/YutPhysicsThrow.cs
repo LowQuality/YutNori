@@ -40,14 +40,14 @@ public class YutPhysicsThrow : MonoBehaviour
     
     public void Update()
     {
-        if (yut.transform.position.y < -5)
+        if (yut.transform.position.y < 10)
         {
             YutPhysicsMode.Yut.Add(YutPhysicsMode.Yut.Count, new Dictionary<int, bool> { { 3, _isMarked } });
             Destroy(gameObject);
         }
         
-        Debug.DrawRay(transform.position + Vector3.up * 0.1f, Vector3.down * 85, Color.red);
-        var hits = Physics.RaycastNonAlloc(transform.position + Vector3.up * 0.1f, Vector3.down, _results, 85.0f);
+        Debug.DrawRay(transform.position + Vector3.up * 0.1f, Vector3.down * 95, Color.red);
+        var hits = Physics.RaycastNonAlloc(transform.position + Vector3.up * 0.1f, Vector3.down, _results, 95.0f);
         
         for (var i = 0; i < hits; i++)
         {

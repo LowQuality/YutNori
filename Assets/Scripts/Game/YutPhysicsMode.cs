@@ -71,7 +71,12 @@ public class YutPhysicsMode : MonoBehaviour
     {
         // Init
         Yut.Clear();
+        StopCoroutine(CalculateYut());
         BoardGame.ThrewYut = true;
+        BoardGame.DoubleChance = false;
+        BoardGame.ShowedValue = false;
+        BoardGame.DroppedYut = false;
+        BoardGame.MoveCount = 0;
 
         // Throw
         for (var i = 0; i < 4; i++)
@@ -173,11 +178,7 @@ public class YutPhysicsMode : MonoBehaviour
         }
         
         yutCamDisableButton.SetActive(false);
-        foreach (var t in YutGameObject)
-        {
-            Destroy(t);
-        }
-        YutGameObject.Clear();
+        ResetYut();
     }
 
     public void ResetYut()
