@@ -112,8 +112,10 @@ public class Movement : MonoBehaviour
             &&
             BoardGame.ThrewYut
             &&
+            BoardGame.ShowedValue
+            &&
             StoredHorseCount(Convert.ToInt32(CharacterSelector.UserInfo[BoardGame.NowTurn][2])) > 0
-            );
+        );
     }
 
     public void NewHorse()

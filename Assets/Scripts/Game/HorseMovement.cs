@@ -52,7 +52,7 @@ public class HorseMovement : MonoBehaviour
             Highlights.Clear();
         }
         
-        if (!MoveEnabled && BoardGame.MoveCount != 0)
+        if (!MoveEnabled && BoardGame.MoveCount != 0 && BoardGame.ShowedValue)
         {
             var horseMovedCount = Movement.Horses[Convert.ToInt32(gameObject.transform.GetChild(1).name)][0].Item1;
 

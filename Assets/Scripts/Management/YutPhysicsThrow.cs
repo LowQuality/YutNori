@@ -23,7 +23,7 @@ public class YutPhysicsThrow : MonoBehaviour
     
     private bool _isStartedCoroutine;
     private bool _isMarked;
-    private readonly RaycastHit[] _results = new RaycastHit[5];
+    private readonly RaycastHit[] _results = new RaycastHit[10];
     
     // !! Notice !! //
     // Front = Curved Side, Back = Straight Side, Drop = Dropped
@@ -40,15 +40,14 @@ public class YutPhysicsThrow : MonoBehaviour
     
     public void Update()
     {
-        if (yut.transform.position.y < 10)
+        if (yut.transform.position.y < 0)
         {
             YutPhysicsMode.Yut.Add(YutPhysicsMode.Yut.Count, new Dictionary<int, bool> { { 3, _isMarked } });
             Destroy(gameObject);
         }
         
-        Debug.DrawRay(transform.position + Vector3.up * 0.1f, Vector3.down * 95, Color.red);
-        var hits = Physics.RaycastNonAlloc(transform.position + Vector3.up * 0.1f, Vector3.down, _results, 95.0f);
-        
+        Debug.DrawRay(transform.position + Vector3.up * 0.1f, Vector3.down * 90.0f, Color.red);
+        var hits = Physics.RaycastNonAlloc(transform.position + Vector3.up * 0.1f, Vector3.down * 90.0f, _results, 90.0f);
         for (var i = 0; i < hits; i++)
         {
             if (!_results[i].collider.CompareTag("Ground") || _isStartedCoroutine) return;
@@ -63,8 +62,7 @@ public class YutPhysicsThrow : MonoBehaviour
         yutRigidbody.isKinematic = true;
 
         // is not Drop
-        var anglesZ = yut.transform.eulerAngles.z;
-        anglesZ %= 360;
+        var anglesZ = yut.transform.eulerAngles.z % 360;
         YutPhysicsMode.Yut.Add(YutPhysicsMode.Yut.Count,
             anglesZ is > -10 and < 10 or > 340 and < 360
                 ? new Dictionary<int, bool> { { 2, _isMarked } }

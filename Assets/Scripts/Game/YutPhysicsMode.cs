@@ -22,7 +22,7 @@ public class YutPhysicsMode : MonoBehaviour
     private const string ThrowType = "물리";
 
     public static readonly Dictionary<int, Dictionary<int, bool>> Yut = new();
-    public static readonly List<GameObject> YutGameObject = new();
+    private static readonly List<GameObject> YutGameObject = new();
     
     public static YutPhysicsMode Instance;
     private void Awake()
@@ -52,7 +52,6 @@ public class YutPhysicsMode : MonoBehaviour
         BoardGame.MoveCount = a;
         BoardGame.DoubleChance = false;
         BoardGame.ThrewYut = true;
-        StartCoroutine(DisableYutCam());
     }
 
     public void DroppedYutCheck()
@@ -71,7 +70,6 @@ public class YutPhysicsMode : MonoBehaviour
     {
         // Init
         Yut.Clear();
-        StopCoroutine(CalculateYut());
         BoardGame.ThrewYut = true;
         BoardGame.DoubleChance = false;
         BoardGame.ShowedValue = false;
@@ -162,17 +160,17 @@ public class YutPhysicsMode : MonoBehaviour
         {
             BoardGame.MoveCount = 0;
             BoardGame.DoubleChance = false;
-            BoardGame.ShowedValue = true;
-            BoardGame.DroppedYut = true;
             GameLog.AddMoveLog("물리", BoardGame.MoveCountToStr(0));
         }
         
+        StartCoroutine(DisableYutCam());
+
         Time.timeScale = 1.0f;
 
         yield return new WaitUntil(() => BoardGame.ShowedValue);
-        if (BoardGame.MoveCount == -1 &&
-            Movement.StoredHorseCount(Convert.ToInt32(CharacterSelector.UserInfo[BoardGame.NowTurn][2])) ==
-            Movement.AllHorseCount(Convert.ToInt32(CharacterSelector.UserInfo[BoardGame.NowTurn][2])))
+        if ((BoardGame.MoveCount == -1 &&
+             Movement.StoredHorseCount(Convert.ToInt32(CharacterSelector.UserInfo[BoardGame.NowTurn][2])) ==
+             Movement.AllHorseCount(Convert.ToInt32(CharacterSelector.UserInfo[BoardGame.NowTurn][2]))) || BoardGame.MoveCount == 0)
         {
             BoardGame.DroppedYut = true;
         }
