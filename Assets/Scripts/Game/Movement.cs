@@ -125,8 +125,7 @@ public class Movement : MonoBehaviour
         switch (Convert.ToInt32(CharacterSelector.UserInfo[BoardGame.NowTurn][2]))
         {
             case 0:
-                resolvedHorse = Instantiate(redToken, startPlace.transform.position, Quaternion.identity);
-                resolvedHorse.transform.SetParent(horsesGameObject.transform);
+                resolvedHorse = Instantiate(redToken, startPlace.transform.position, Quaternion.identity, horsesGameObject.transform);
                 Horses.Add(CreatedHorseCount, new List<Tuple<int, GameObject>> {new (BoardGame.MoveCount, resolvedHorse)});
 
                 // AddCounter
@@ -136,8 +135,7 @@ public class Movement : MonoBehaviour
                 CreatedHorseCount++;
                 break;
             case 1:
-                resolvedHorse = Instantiate(greenToken, startPlace.transform.position, Quaternion.identity);
-                resolvedHorse.transform.SetParent(horsesGameObject.transform);
+                resolvedHorse = Instantiate(greenToken, startPlace.transform.position, Quaternion.identity, horsesGameObject.transform);
                 Horses.Add(CreatedHorseCount, new List<Tuple<int, GameObject>> {new (BoardGame.MoveCount, resolvedHorse)});
                 
                 // AddCounter
@@ -147,8 +145,7 @@ public class Movement : MonoBehaviour
                 CreatedHorseCount++;
                 break;
             case 2:
-                resolvedHorse = Instantiate(blueToken, startPlace.transform.position, Quaternion.identity);
-                resolvedHorse.transform.SetParent(horsesGameObject.transform);
+                resolvedHorse = Instantiate(blueToken, startPlace.transform.position, Quaternion.identity, horsesGameObject.transform);
                 Horses.Add(CreatedHorseCount, new List<Tuple<int, GameObject>> {new (BoardGame.MoveCount, resolvedHorse)});
                 
                 // AddCounter
@@ -158,8 +155,7 @@ public class Movement : MonoBehaviour
                 CreatedHorseCount++;
                 break;
             case 3:
-                resolvedHorse = Instantiate(yellowToken, startPlace.transform.position, Quaternion.identity);
-                resolvedHorse.transform.SetParent(horsesGameObject.transform);
+                resolvedHorse = Instantiate(yellowToken, startPlace.transform.position, Quaternion.identity, horsesGameObject.transform);
                 Horses.Add(CreatedHorseCount, new List<Tuple<int, GameObject>> {new (BoardGame.MoveCount, resolvedHorse)});
                 
                 // AddCounter

@@ -178,10 +178,10 @@ public class HorseMovement : MonoBehaviour
                 // Create new horse from file
                 _movedHorse = saveHorseCount switch
                 {
-                    "x1" => Instantiate(Movement.Instance.redToken, savePosition, Quaternion.identity),
-                    "x2" => Instantiate(Movement.Instance.redTokenX2, savePosition, Quaternion.identity),
-                    "x3" => Instantiate(Movement.Instance.redTokenX3, savePosition, Quaternion.identity),
-                    "x4" => Instantiate(Movement.Instance.redTokenX4, savePosition, Quaternion.identity),
+                    "x1" => Instantiate(Movement.Instance.redToken, savePosition, Quaternion.identity, Movement.Instance.horsesGameObject.transform),
+                    "x2" => Instantiate(Movement.Instance.redTokenX2, savePosition, Quaternion.identity, Movement.Instance.horsesGameObject.transform),
+                    "x3" => Instantiate(Movement.Instance.redTokenX3, savePosition, Quaternion.identity, Movement.Instance.horsesGameObject.transform),
+                    "x4" => Instantiate(Movement.Instance.redTokenX4, savePosition, Quaternion.identity, Movement.Instance.horsesGameObject.transform),
                     _ => _movedHorse
                 };
                 break;
@@ -189,10 +189,10 @@ public class HorseMovement : MonoBehaviour
                 Destroy(_waitingHorse);
                 _movedHorse = saveHorseCount switch
                 {
-                    "x1" => Instantiate(Movement.Instance.greenToken, savePosition, Quaternion.identity),
-                    "x2" => Instantiate(Movement.Instance.greenTokenX2, savePosition, Quaternion.identity),
-                    "x3" => Instantiate(Movement.Instance.greenTokenX3, savePosition, Quaternion.identity),
-                    "x4" => Instantiate(Movement.Instance.greenTokenX4, savePosition, Quaternion.identity),
+                    "x1" => Instantiate(Movement.Instance.greenToken, savePosition, Quaternion.identity, Movement.Instance.horsesGameObject.transform),
+                    "x2" => Instantiate(Movement.Instance.greenTokenX2, savePosition, Quaternion.identity, Movement.Instance.horsesGameObject.transform),
+                    "x3" => Instantiate(Movement.Instance.greenTokenX3, savePosition, Quaternion.identity, Movement.Instance.horsesGameObject.transform),
+                    "x4" => Instantiate(Movement.Instance.greenTokenX4, savePosition, Quaternion.identity, Movement.Instance.horsesGameObject.transform),
                     _ => _movedHorse
                 };
                 break;
@@ -200,10 +200,10 @@ public class HorseMovement : MonoBehaviour
                 Destroy(_waitingHorse);
                 _movedHorse = saveHorseCount switch
                 {
-                    "x1" => Instantiate(Movement.Instance.blueToken, savePosition, Quaternion.identity),
-                    "x2" => Instantiate(Movement.Instance.blueTokenX2, savePosition, Quaternion.identity),
-                    "x3" => Instantiate(Movement.Instance.blueTokenX3, savePosition, Quaternion.identity),
-                    "x4" => Instantiate(Movement.Instance.blueTokenX4, savePosition, Quaternion.identity),
+                    "x1" => Instantiate(Movement.Instance.blueToken, savePosition, Quaternion.identity, Movement.Instance.horsesGameObject.transform),
+                    "x2" => Instantiate(Movement.Instance.blueTokenX2, savePosition, Quaternion.identity, Movement.Instance.horsesGameObject.transform),
+                    "x3" => Instantiate(Movement.Instance.blueTokenX3, savePosition, Quaternion.identity, Movement.Instance.horsesGameObject.transform),
+                    "x4" => Instantiate(Movement.Instance.blueTokenX4, savePosition, Quaternion.identity, Movement.Instance.horsesGameObject.transform),
                     _ => _movedHorse
                 };
                 break;
@@ -211,16 +211,14 @@ public class HorseMovement : MonoBehaviour
                 Destroy(_waitingHorse);
                 _movedHorse = saveHorseCount switch
                 {
-                    "x1" => Instantiate(Movement.Instance.yellowToken, savePosition, Quaternion.identity),
-                    "x2" => Instantiate(Movement.Instance.yellowTokenX2, savePosition, Quaternion.identity),
-                    "x3" => Instantiate(Movement.Instance.yellowTokenX3, savePosition, Quaternion.identity),
-                    "x4" => Instantiate(Movement.Instance.yellowTokenX4, savePosition, Quaternion.identity),
+                    "x1" => Instantiate(Movement.Instance.yellowToken, savePosition, Quaternion.identity, Movement.Instance.horsesGameObject.transform),
+                    "x2" => Instantiate(Movement.Instance.yellowTokenX2, savePosition, Quaternion.identity, Movement.Instance.horsesGameObject.transform),
+                    "x3" => Instantiate(Movement.Instance.yellowTokenX3, savePosition, Quaternion.identity, Movement.Instance.horsesGameObject.transform),
+                    "x4" => Instantiate(Movement.Instance.yellowTokenX4, savePosition, Quaternion.identity, Movement.Instance.horsesGameObject.transform),
                     _ => _movedHorse
                 };
                 break;
         }
-        _movedHorse.transform.position = savePosition;
-        _movedHorse.transform.SetParent(Movement.Instance.horsesGameObject.transform);
         Movement.Horses.Add(Movement.CreatedHorseCount,
             new List<Tuple<int, GameObject>> { new(Convert.ToInt32(gameObject.transform.GetChild(0).name), _movedHorse) });
 
